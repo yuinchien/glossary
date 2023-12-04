@@ -1,31 +1,137 @@
 <html>
-  <head>
-    <title>Glossary</title>
-    <style>
-      body {
-        font-family: "Helvetica", san-serif;
-        font-size: 20px;
-        line-height: 32px;
-      }
-      </style>
-    <script src="showdown.min.js"></script>
-  </head>
-  <body>
+    <head>
+        <title>AI Glossary</title>
+        <style>
+            body {
+                font-family: "Helvetica", san-serif;
+                font-size: 20px;
+                line-height: 32px;
+                color: #222;
+                padding: 0;
+                margin: 0;
+            }
+            .section {
+                padding: 40px;
+                margin-bottom: 240px;
+                display: flex;
+                border-top: 1px solid #222;
+                gap: 24px;
+            }
+            .row {
+                display: flex;
+                gap: 24px;
+            }
+            .flex {
+                flex: 1;
+            }
+            .terms {
+                flex: 3;
+            }
+            .term {
+                font-size: 2em;
+                line-height: 1.2em;
+                flex: 2;
+                position: -webkit-sticky; /* Required for Safari */
+                position: sticky;
+                display: block;
+                top: 24px;
+                height: 1em;
+            }
+            .definition {
+                flex: 2;
+            }
+            .initial {
+                position: -webkit-sticky; /* Required for Safari */
+                position: sticky;
+                height: 96px;
+                font-size: 8em;
+                line-height: 0.85em;
+                top: 24px;
+                flex: 1;
+                display: block;
+            }
+            .terms .row {
+                margin-bottom: 80px;
+            }
+            .terms .row:hover .arrow {
+                opacity: 1;
+            }
+            .arrow {
+                opacity: 0;
+                width: 32px;
+                height: 32px;
+                display: block;
+                background-image: url(arrow.svg);
+                background-size: cover;
+                transition: 0.2s all;
+            }
+        </style>
+        <script src="showdown.min.js"></script>
+    </head>
+    <body>
+        <div id="content"></div>
 
-    <div id="content"></div>
-    <script>
-      
-      const markdownURL = "https://gist.githubusercontent.com/yuinchien/8f7d47243cf5064de543d287714c64b1/raw/073325d5ee245adffa59b49d08f53c750d225b7a/gistfile1.md";
-      fetch(markdownURL)
-        .then(response => response.text())
-        .then(data => { 
-          const converter = new showdown.Converter();
-          const html = converter.makeHtml(data);
-          console.log("html", html);
-          document.getElementById('content').innerHTML = html;
+        <script>
+            const glossary = {};
+            const markdownURL =
+                "https://gist.githubusercontent.com/yuinchien/8f7d47243cf5064de543d287714c64b1/raw/gistfile1.md";
+            fetch(markdownURL)
+                .then((response) => response.text())
+                .then((data) => {
+                    showdown.setFlavor("github");
+                    const converter = new showdown.Converter();
+                    const html = converter.makeHtml(data);
+                    let doc = new DOMParser().parseFromString(html, "text/xml");
 
-          
-        })
-    </script>
-  </body>
+                    const rows = doc.firstChild.querySelectorAll("tr");
+                    const firstLetters = {};
+                    rows.forEach((row, i) => {
+                        const columns = row.querySelectorAll("td");
+                        if (i > 0) {
+                            const term = columns[0].textContent;
+                            firstLetters[term[0].toUpperCase()] = 1;
+                            let value = {};
+                            if (columns[1]) {
+                                value["definition"] = columns[1].innerHTML;
+                            }
+                            if (columns[2]) {
+                                const url = columns[2]
+                                    .querySelector("a")
+                                    .getAttribute("href");
+                                value["source"] = url;
+                            }
+                            if (columns[3]) {
+                                value["link"] = columns[3].innerHTML;
+                            }
+                            glossary[term] = value;
+                        }
+                    });
+                    console.log(glossary);
+                    const content = document.getElementById("content");
+                    const terms = Object.keys(glossary);
+                    terms.sort();
+
+                    const listFirstLetters = Object.keys(firstLetters);
+                    listFirstLetters.sort();
+                    listFirstLetters.forEach((letter) => {
+                        const section = document.createElement("div");
+                        section.innerHTML = `<div class="initial">${letter}</div><div class="terms" id="terms-${letter}"></div>`;
+                        section.id = `section-${letter}`;
+                        section.className = "section";
+                        content.appendChild(section);
+                    });
+
+                    terms.forEach((term) => {
+                        const id = `terms-${term[0].toUpperCase()}`;
+                        const terms = document.getElementById(id);
+                        const value = glossary[term];
+                        const div = document.createElement("div");
+                        div.className = "row";
+                        div.innerHTML = `<div class="term">${term}</div><div class="definition">${glossary[term].definition}</div><a class="arrow" href="${glossary[term].source}" target="_blank"></a>`;
+                        terms.appendChild(div);
+                    });
+                    // document.getElementById("content").innerHTML = html;
+                });
+        </script>
+    </body>
 </html>
