@@ -1,26 +1,39 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
         <title>AI Glossary</title>
         <style>
             @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap");
+
             :root {
                 --padding: 24px;
                 --letter-spacing: 0em;
                 --color-dark: #222;
+                --font-size: 24px;
+                --line-height: 32px;
             }
+
+            html,
+            body {
+                width: 100%;
+            }
+
             * {
                 box-sizing: border-box;
             }
+
             body {
                 font-family: "DM Sans", sans-serif;
-
-                font-size: 24px;
-                line-height: 32px;
+                font-size: var(--font-size);
+                line-height: var(--line-height);
                 color: var(--color-dark);
                 padding: 0;
                 margin: 0;
             }
+
             h1 {
                 font-size: 6em;
                 font-weight: normal;
@@ -28,6 +41,7 @@
                 margin: calc(var(--padding) / 2) var(--padding) 192px
                     var(--padding);
             }
+
             .section {
                 padding: 0 0 var(--padding) var(--padding);
                 margin-bottom: 240px;
@@ -35,62 +49,62 @@
                 border-top: 1px solid var(--color-dark);
                 gap: var(--padding);
             }
+
             .row {
                 display: flex;
                 gap: var(--padding);
             }
+
             .flex {
                 flex: 1;
             }
+
             .terms {
                 flex: 3;
             }
-            .term:before {
-                content: "";
-                position: absolute;
-                left: -72px;
-                width: 48px;
-                height: 48px;
-                background-color: var(--color-dark);
-                border-radius: 30px;
-                top: 30px;
-                /* ✦▲●◼︎▲■ */
-            }
+
             .term {
                 font-size: 2.5em;
-                line-height: 1em;
+                line-height: 1.1em;
                 flex: 2;
-                position: -webkit-sticky; /* Required for Safari */
+                position: -webkit-sticky;
+                /* Required for Safari */
                 position: sticky;
                 display: block;
                 top: 0;
-                padding-top: var(--padding);
-                padding-bottom: 16px;
+
+                padding: calc(var(--padding) * 0.8) 0;
                 height: 2em;
                 letter-spacing: var(--letter-spacing);
                 background: white;
                 z-index: 1000;
             }
+
             .definition {
                 flex: 2;
                 padding-top: var(--padding);
             }
+
             .initial {
-                position: -webkit-sticky; /* Required for Safari */
+                position: -webkit-sticky;
                 position: sticky;
                 height: 96px;
                 font-size: 6em;
-                line-height: 1.1em;
+                line-height: 1em;
+                padding-top: calc(var(--padding) * 0.4);
                 top: 0;
                 flex: 1;
                 display: block;
             }
+
             .terms .row {
-                margin-bottom: 80px;
+                margin-bottom: calc(var(--padding) * 4);
             }
+
             .terms .row:hover .arrow {
                 opacity: 1;
             }
+
             .arrow {
                 opacity: 0;
                 width: 32px;
@@ -101,20 +115,49 @@
                 transition: 0.2s all;
                 margin: var(--padding) var(--padding) 0 0;
             }
+
             footer {
                 padding: var(--padding);
             }
+
             footer a {
                 color: #222;
             }
+
             @media only screen and (max-width: 960px) {
+                :root {
+                    --font-size: 18px;
+                    --line-height: 24px;
+                    --padding: 16px;
+                }
+                h1 {
+                    font-size: 3.2em;
+                }
+                .initial {
+                    font-size: 3.2em;
+                    padding-top: 10px;
+                }
+                .terms {
+                    flex: 4;
+                }
+                .term {
+                    position: relative;
+                    height: auto;
+                    font-size: 2em;
+                    padding: calc(var(--padding) * 0.8) var(--padding)
+                        calc(var(--padding) * 0.5) 0;
+                }
+                .definition {
+                    padding: 0 var(--padding) 0 0;
+                }
                 .row {
-                    flex-direction: column;
+                    display: block;
                 }
             }
         </style>
         <script src="showdown.min.js"></script>
     </head>
+
     <body>
         <h1>AI Glossary</h1>
         <div id="content"></div>
