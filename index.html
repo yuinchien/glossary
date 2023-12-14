@@ -2,15 +2,23 @@
     <head>
         <title>AI Glossary</title>
         <style>
+            @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap");
             :root {
                 --padding: 24px;
-                --letter-spacing: -0.02em;
+                --letter-spacing: 0em;
+                --color-dark: #222;
+            }
+            * {
+                box-sizing: border-box;
             }
             body {
-                font-family: "Helvetica", san-serif;
+                /* font-family: "Playfair Display", serif; */
+                /* font-family: "Helvetica", san-serif; */
+                font-family: "DM Sans", sans-serif;
+
                 font-size: 24px;
                 line-height: 32px;
-                color: #222;
+                color: var(--color-dark);
                 padding: 0;
                 margin: 0;
             }
@@ -24,7 +32,7 @@
                 padding: var(--padding);
                 margin-bottom: 240px;
                 display: flex;
-                border-top: 1px solid #222;
+                border-top: 1px solid var(--color-dark);
                 gap: var(--padding);
             }
             .row {
@@ -36,6 +44,18 @@
             }
             .terms {
                 flex: 3;
+            }
+            .term:before {
+                content: "";
+                position: absolute;
+                left: -72px;
+                width: 48px;
+                height: 48px;
+                background-color: var(--color-dark);
+                border-radius: 30px;
+                top: 6px;
+                /* border: 1px solid var(--color-dark); */
+                /* ✦▲●◼︎▲■ */
             }
             .term {
                 font-size: 2.5em;
