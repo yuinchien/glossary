@@ -2,9 +2,63 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
+        <link rel="icon" href="https://yuinchien.com/icon_cloud_512.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="keywords"
+            content="Yuin Chien,Yuin,Creative Coding,Graphic Design,Designer,Potter"
+        />
+        <meta name="author" content="Yuin Chien" />
+        <meta
+            name="description"
+            content="Object detection using TensorFlow.js"
+        />
 
-        <title>AI Glossary</title>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@yuinchien" />
+        <meta name="twitter:title" content="Alter Camera · Yuin Chien" />
+        <meta
+            name="twitter:description"
+            content="Object detection using TensorFlow.js"
+        />
+        <meta
+            name="twitter:image"
+            content="https://yuinchien.com/images/alter-camera/cover_1200x630.png"
+        />
+
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Alter Camera · Yuin Chien" />
+        <meta
+            property="og:description"
+            content="Object detection using TensorFlow.js"
+        />
+        <meta
+            property="og:image"
+            content="https://yuinchien.com/images/alter-camera/cover_1200x630.png"
+        />
+        <meta
+            property="og:url"
+            content="https://yuinchien.com/projects/alter-camera"
+        />
+
+        <title>AI Glossary · Yuin Chien</title>
+
+        <!-- Google tag (gtag.js) -->
+        <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-B7JVVPGL92"
+        ></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+
+            gtag("config", "G-B7JVVPGL92");
+        </script>
+
         <style>
             @import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap");
 
@@ -207,7 +261,7 @@
                             glossary[term] = value;
                         }
                     });
-                    console.log(glossary);
+                    // console.log(glossary);
                     const content = document.getElementById("content");
                     const terms = Object.keys(glossary);
                     terms.sort();
